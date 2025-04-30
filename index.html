@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventPlug</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Event Plug</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contacts</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Upcoming Events</h2>
+        <div id="events-container"></div>
+
+        <h2>Add New Event</h2>
+        <form id="add-event-form">
+            <input type="text" id="event-name" placeholder="Event Name" required>
+            <input type="date" id="event-date" required>
+            <input type="text" id="event-location" placeholder="Location" required>
+            <input type="text" id="event-image" placeholder="images/party1.png" required>
+            <button type="submit">Add Event</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Event Plug. All rights reserved</p>
+    </footer>
+
+    <script src="js/index.js" defer></script>
+</body>
+</html>
