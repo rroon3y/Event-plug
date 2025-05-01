@@ -5,10 +5,10 @@
 ## Description
 EventPlug is a platform designed to help users discover upcoming events, connect with event organizers, and RSVP easily. Whether it's a music festival, a tech meetup, or an art show, EventPlug brings all the exciting events near you to one place. Users can add their own events, browse through upcoming events, and contact organizers seamlessly.
 
-## Live Demo
+## Live 
 Check out the live version of EventPlug here:  
 [EventPlug on Vercel](https://event-plug.vercel.app/)
-[EventPlug on Github](https://rroon3y.github.io/Event-plug/)
+(https://rroon3y.github.io/Event-plug/)
 
 ## Setup/Installation Requirements
 * Download or clone the repository
