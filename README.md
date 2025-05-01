@@ -8,6 +8,7 @@ EventPlug is a platform designed to help users discover upcoming events, connect
 ## Live link
 Check out the live version of EventPlug here:  
 https://event-plug.vercel.app/ - Vercel
+
 https://rroon3y.github.io/Event-plug/ - Github
 
 ## Setup/Installation Requirements
