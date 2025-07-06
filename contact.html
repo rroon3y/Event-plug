@@ -6,50 +6,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact - Event Plug</title>
   <link rel="stylesheet" href="css/index.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <header>
-    <h1>Event Plug</h1>
+  <header class="navbar">
+    <div class="logo">Event<span>Plug</span></div>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="contact.html" class="active">Contacts</a>
+      <a href="./index.html">Home</a>
+      <a href="./about.html">About</a>
+      <a href="./contact.html" class="active">Contact</a>
     </nav>
   </header>
 
   <main>
-    <section class="contact-section">
-      <h2>Contact Organizers</h2>
-      <p>Have questions or want to RSVP for an event? Use the form below to get in touch with us!</p>
+    <section class="contact-section fade-in">
+      <h2>Let's Connect</h2>
+      <p>Got questions, feedback, or just want to say hi? Send us a message.</p>
 
       <form id="contact-form">
-        <div class="form-group">
-          <label for="name">Your Name:</label>
-          <input type="text" id="name" placeholder="Enter your name" required />
-        </div>
-
-        <div class="form-group">
-          <label for="email">Your Email:</label>
-          <input type="email" id="email" placeholder="Enter your email" required />
-        </div>
-
-        <div class="form-group">
-          <label for="message">Message:</label>
-          <textarea id="message" placeholder="Write your message here" required></textarea>
-        </div>
-
+        <input type="text" id="name" placeholder="Your Name" required />
+        <input type="email" id="email" placeholder="Your Email" required />
+        <textarea id="message" placeholder="Your Message" required></textarea>
         <button type="submit">Send Message</button>
       </form>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 Event Plug. All rights reserved.</p>
+    <p>&copy; 2025 Event Plug. We’ll be in touch.</p>
   </footer>
 
-  <script src="js/index.js"></script>
+  <script src="js/index.js" defer></script>
 </body>
 
 </html>
