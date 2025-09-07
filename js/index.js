@@ -1,64 +1,74 @@
 window.addEventListener('DOMContentLoaded', () => {
-    const eventsContainer = document.getElementById('events-container');
-    const form = document.getElementById('add-event-form');
-    const contactForm = document.getElementById('contact-form');
+  const eventsContainer = document.getElementById('events-container');
+  const pastEventsContainer = document.getElementById('past-events-container');
+  const form = document.getElementById('add-event-form');
+  const modal = document.getElementById('event-modal');
+  const closeBtn = document.querySelector('.close-btn');
 
-    let sampleEvents = [
-        {
-            name: 'Summer Music Festival',
-            date: '2025-06-15',
-            location: 'Nairobi',
-            image: 'images/party1.png',
-            type: 'sample',
-        },
-        {
-            name: 'Tech Conference 2025',
-            date: '2025-09-10',
-            location: 'Mombasa',
-            image: 'images/party3.jpeg',
-            type: 'sample',
-        }
-    ];
+  const modalImage = document.getElementById('modal-image');
+  const modalTitle = document.getElementById('modal-title');
+  const modalDate = document.getElementById('modal-date');
+  const modalLocation = document.getElementById('modal-location');
+  const modalCategory = document.getElementById('modal-category');
 
-    const getStoredEvents = () => JSON.parse(localStorage.getItem('events')) || [];
+  let sampleEvents = [
+    { name: 'Summer Music Festival', date: '2025-06-15', location: 'Nairobi', image: 'images/party1.png', category: 'Music', type: 'sample' },
+    { name: 'Tech Conference 2025', date: '2025-09-10', location: 'Mombasa', image: 'images/party3.jpeg', category: 'Tech', type: 'sample' }
+  ];
 
-    const saveEvents = (events) => {
-        const events = getStoredEvents();
-        events.push(event);
-        localStorage.setItem('events', JSON.stringify(events));
-    };
+  const getStoredEvents = () => JSON.parse(localStorage.getItem('events')) || [];
+  const saveEvent = (event) => {
+    const events = getStoredEvents();
+    events.push(event);
+    localStorage.setItem('events', JSON.stringify(events));
+  };
 
-    const removeEvent = (index, type) => {
-        if (type === 'sample') {
-            sampleEvents.splice(index, 1);
-        } else {
-            const events = getStoredEvents();
-            events.splice(index - sampleEvents.length, 1); // Adjust index for stored events
-            localStorage.setItem('events', JSON.stringify(events));
-        }
-        renderEvents();
-    };
-     
-    const renderEvents = () => {
-        if (!eventsContainer) return;
-        const stored = getStoredEvents();
-        const allEvents = [...sampleEvents, ...stored];
-        eventsContainer.innerHTML = '';
+  const removeEvent = (index, type) => {
+    if (type === 'sample') {
+      sampleEvents.splice(index, 1);
+    } else {
+      const events = getStoredEvents();
+      events.splice(index - sampleEvents.length, 1);
+      localStorage.setItem('events', JSON.stringify(events));
+    }
+    renderEvents();
+  };
 
-        allEvents.forEach((event, index) => {
-            const card = document.createElement('div');
-            card.className = 'event-card fade-in';
-            card.innerHTML = `
-                <img src="${event.image}" alt="${event.name}" class="event-image">
-                <h3>${event.name}</h3>
-                <p><strong>Date:</strong> ${event.date}</p>
-                <p><strong>Location:</strong> ${event.location}</p>
-                <button class="remove-event" data-index="${index}" data-type="${event.type}">Remove</button>
-          `;
-            eventsContainer.appendChild(card);
+  const renderEvents = () => {
+    if (!eventsContainer || !pastEventsContainer) return;
+    const stored = getStoredEvents();
+    const allEvents = [...sampleEvents, ...stored];
+
+    eventsContainer.innerHTML = '';
+    pastEventsContainer.innerHTML = '';
+
+    const today = new Date().toISOString().split('T')[0];
+
+    allEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    allEvents.forEach((event, index) => {
+      const card = document.createElement('div');
+      card.className = 'event-card fade-in';
+      card.innerHTML = `
+        <img src="${event.image}" alt="${event.name}" class="event-image">
+        <h3>${event.name}</h3>
+        <p><strong>Date:</strong> ${event.date}</p>
+        <p><strong>Location:</strong> ${event.location}</p>
+        <span class="category-badge">${event.category}</span><br>
+        <button class="remove-event" data-index="${index}" data-type="${event.type}">Remove</button>
+      `;
+
+      // Add modal open
+      card.querySelector('img').addEventListener('click', () => openModal(event));
+
+      if (event.date >= today) {
+        eventsContainer.appendChild(card);
+      } else {
+        pastEventsContainer.appendChild(card);
+      }
     });
 
-     document.querySelectorAll(".remove-event").forEach(button => {
+    document.querySelectorAll(".remove-event").forEach(button => {
       button.addEventListener("click", () => {
         const index = parseInt(button.getAttribute("data-index"));
         const type = button.getAttribute("data-type");
@@ -77,13 +87,14 @@ window.addEventListener('DOMContentLoaded', () => {
       const date = document.getElementById("event-date").value;
       const location = document.getElementById("event-location").value.trim();
       const image = document.getElementById("event-image").value.trim();
+      const category = document.getElementById("event-category").value.trim();
 
-      if (!name || !date || !location || !image) {
+      if (!name || !date || !location || !image || !category) {
         showToast("Please fill in all fields ❗");
         return;
       }
 
-      const newEvent = { name, date, location, image, type: "stored" };
+      const newEvent = { name, date, location, image, category, type: "stored" };
       saveEvent(newEvent);
       renderEvents();
       form.reset();
@@ -91,26 +102,20 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Contact form feedback
-  if (contactForm) {
-    contactForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const message = document.getElementById("message").value.trim();
-
-      if (!name || !email || !message) {
-        showToast("All fields required ❗");
-        return;
-      }
-
-      showToast("Thank you for your message 💌");
-      contactForm.reset();
-    });
+  // Modal functions
+  function openModal(event) {
+    modal.style.display = 'flex';
+    modalImage.src = event.image;
+    modalTitle.textContent = event.name;
+    modalDate.textContent = `Date: ${event.date}`;
+    modalLocation.textContent = `Location: ${event.location}`;
+    modalCategory.textContent = `Category: ${event.category}`;
   }
 
-  // Toast notification system
+  closeBtn.addEventListener('click', () => modal.style.display = 'none');
+  window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+
+  // Toast
   function showToast(message) {
     const toast = document.createElement("div");
     toast.className = "toast";
@@ -137,5 +142,3 @@ window.addEventListener('DOMContentLoaded', () => {
 
   renderEvents();
 });
-
-                

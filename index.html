@@ -1,55 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EventPlug</title>
-    <link rel="stylesheet" href="css/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventPlug</title>
+  <link rel="stylesheet" href="css/index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
 <body>
-    <header class="navbar">
-        <div class="logo">Event<span>Plug</span></div>
-        <nav>
-            <a href="index.html" class="active">Home</a>
-            <a href="about.html" >About</a>
-            <a href="contact.html">Contact</a>
-        </nav>
-    </header>
+  <header class="navbar">
+    <div class="logo">Event<span>Plug</span></div>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Plug Into the Hottest Events</h1>
-            <p>Discover, create, and connect with unforgettable experiences around you.</p>
-            <a href="#add-event-form" class="hero-btn">Add Your Event</a>
-        </div>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Plug Into the Hottest Events</h1>
+      <p>Discover, create, and connect with unforgettable experiences around you.</p>
+      <a href="#add-event-form" class="hero-btn">Add Your Event</a>
+    </div>
+  </section>
+
+  <main>
+    <section class="events-section">
+      <h2>Upcoming Events</h2>
+      <div id="events-container" class="events-grid"></div>
     </section>
 
-    <main>
-        <section class="events-section">
-            <h2>Upcoming Events</h2>
-            <div id="events-container" class="events-grid"></div>
-        </section>
+    <section class="events-section">
+      <h2>Past Events</h2>
+      <div id="past-events-container" class="events-grid"></div>
+    </section>
 
-        <section class="form-section">
-            <h2>Add a New Event</h2>
-            <form id="add-event-form">
-                <input type="text" id="event-name" placeholder="Event Name" required >
-                <input type="text" id="event-date" required>
-                <input type="text" id="event-location" placeholder="Location" required>
-                <input type="text" id="event-image" placeholder="Image Path e.g images/party1.png" required>
-                <button type="submit">Add Event</button>
-            </form>
-        </section>
-    </main>
+    <section class="form-section">
+      <h2>Add a New Event</h2>
+      <form id="add-event-form">
+        <input type="text" id="event-name" placeholder="Event Name" required>
+        <input type="date" id="event-date" required>
+        <input type="text" id="event-location" placeholder="Location" required>
+        <input type="text" id="event-image" placeholder="Image Path e.g images/party1.png" required>
+        <input type="text" id="event-category" placeholder="Category e.g. Music, Tech, Sports" required>
+        <button type="submit">Add Event</button>
+      </form>
+    </section>
+  </main>
 
-    <footer>
-        <p>&copy; 2025 Event Plug. All rights reserved.</p>
-    </footer>
+  <footer>
+    <p>&copy; 2025 Event Plug. All rights reserved.</p>
+  </footer>
 
-    <script src="js/index.js" defer></script>
-     
+  <!-- Modal -->
+  <div id="event-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <img id="modal-image" src="" alt="">
+      <h3 id="modal-title"></h3>
+      <p id="modal-date"></p>
+      <p id="modal-location"></p>
+      <p id="modal-category"></p>
+    </div>
+  </div>
+
+  <script src="js/index.js" defer></script>
 </body>
-
 </html>
